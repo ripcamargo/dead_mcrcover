@@ -14,9 +14,62 @@ import type { ShowItem, SocialLink } from './types';
 import { galleryImages } from './data/gallery';
 
 const shows: ShowItem[] = [
-  { city: 'São Paulo', venue: 'Audio', date: '21/09/2026', time: '22:00', tickets: 'Ingressos à venda' },
-  { city: 'Rio de Janeiro', venue: 'Vivo Rio', date: '03/10/2026', time: '21:30', tickets: 'Últimas unidades' },
-  { city: 'Curitiba', venue: 'Music Hall', date: '17/10/2026', time: '22:30', tickets: 'Esgotando' },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Jubarte Music Pub',
+    date: '26/03/2026',
+    time: '21h',
+    tickets: 'Ensaio Aberto',
+  },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Jubarte Music Pub',
+    date: '10/04/2026',
+    time: '21h',
+    tickets: '',
+  },
+  {
+    city: 'Itapetininga/SP',
+    venue: 'Porco e Malte',
+    date: '25/04/2026',
+    time: '22h',
+    tickets: '',
+  },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Rock for Pets',
+    date: '09/05/2026',
+    time: '19h',
+    tickets: '',
+  },
+  {
+    city: 'Itapetininga/SP',
+    venue: "Gab's House Bar",
+    date: '06/06/2026',
+    time: '23h',
+    tickets: '',
+  },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Led Bar',
+    date: '13/06/2026',
+    time: '22h',
+    tickets: 'Abertura p/ Aléxia',
+  },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Rock Contra o Câncer',
+    date: '14/06/2026',
+    time: '20h',
+    tickets: "The Devil's Pub",
+  },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Flor de Café',
+    date: '25/06/2026',
+    time: '21h',
+    tickets: 'Acústico • JF Estúdio',
+  },
 ];
 
 const socials: SocialLink[] = [
