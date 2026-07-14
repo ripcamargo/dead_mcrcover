@@ -14,7 +14,7 @@ export function LoadingScreen() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <img src="/logo.jpg" alt="DEAD logo" />
+        <img src="/logo dead vert.png" alt="DEAD logo" />
       </motion.div>
       <motion.div
         className="loading-bar"

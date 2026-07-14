@@ -11,6 +11,7 @@ import { LoadingScreen } from './components/LoadingScreen';
 import { Navbar } from './components/Navbar';
 import { FloatingGlow } from './components/FloatingGlow';
 import type { ShowItem, SocialLink } from './types';
+import { galleryImages } from './data/gallery';
 
 const shows: ShowItem[] = [
   { city: 'São Paulo', venue: 'Audio', date: '21/09/2026', time: '22:00', tickets: 'Ingressos à venda' },
@@ -26,14 +27,7 @@ const socials: SocialLink[] = [
   { name: 'Facebook', href: 'https://facebook.com', icon: 'facebook' },
 ];
 
-const galleryImages = [
-  '/background1.jpg',
-  '/background2.jpg',
-  '/background3.jpg',
-  '/background1.jpg',
-  '/background2.jpg',
-  '/background3.jpg',
-];
+// galleryImages imported from src/data/gallery
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);

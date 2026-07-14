@@ -4,6 +4,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 const links = [
   { label: 'Início', href: '#home' },
+  { label: 'Sobre', href: '#about' },
   { label: 'Agenda', href: '#agenda' },
   { label: 'Galeria', href: '#gallery' },
   { label: 'Redes', href: '#socials' },
@@ -28,7 +29,7 @@ export function Navbar() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       <a className="brand" href="#home">
-        <img src="/logo.jpg" alt="DEAD logo" />
+        <img src="/logo dead horizon.png" alt="DEAD logo" />
         
       </a>
       <nav>
@@ -39,7 +40,7 @@ export function Navbar() {
         ))}
       </nav>
       <a className="nav-cta" href="#contact">
-        Falar com a banda <FiArrowUpRight />
+        Contrate <FiArrowUpRight />
       </a>
     </motion.header>
   );

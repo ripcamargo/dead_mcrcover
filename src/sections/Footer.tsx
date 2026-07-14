@@ -10,7 +10,7 @@ export function Footer() {
       transition={{ duration: 0.7 }}
     >
       <div className="footer-brand">
-        <img src="/logo.jpg" alt="DEAD logo" />
+        <img src="/logo dead horizon.png" alt="DEAD logo" />
         <span>DEAD</span>
       </div>
       <p>Every night feels like the last one.</p>

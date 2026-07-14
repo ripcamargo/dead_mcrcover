@@ -1,35 +1,21 @@
 import { motion } from 'framer-motion';
-import { FiArrowDown, FiHeadphones, FiPlayCircle } from 'react-icons/fi';
+import { FiArrowDown, FiPlayCircle } from 'react-icons/fi';
 
 export function Hero() {
   return (
     <section className="hero-section" id="home">
       <div className="hero-overlay" />
       <div className="hero-content">
-        <motion.div
-          className="hero-badge"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-        >
-          <FiHeadphones />
-          <span>Cover de My Chemical Romance</span>
-        </motion.div>
+        
         <motion.img
-          src="/logo.jpg"
+          src="/logo dead vert.png"
           alt="DEAD logo"
           className="hero-logo"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: 'easeOut' }}
         />
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2 }}
-        >
-          DEAD
-        </motion.h1>
+        
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -58,7 +44,7 @@ export function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.8 }}
       >
-        <span>Rolar</span>
+        
         <FiArrowDown />
       </motion.a>
     </section>
