@@ -48,9 +48,9 @@ export function Agenda({ shows }: AgendaProps) {
           >
             <div className="show-topline">
               <span>{show.city}</span>
-              <span>{show.venue}</span>
+            
             </div>
-            <h3>{show.city}</h3>
+            <h3>{show.venue}</h3>
             <p>{show.date}</p>
             <p>{show.time}</p>
             {show.tickets ? <small>{show.tickets}</small> : null}
