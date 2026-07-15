@@ -70,6 +70,28 @@ const shows: ShowItem[] = [
     time: '21h',
     tickets: 'Acústico • JF Estúdio',
   },
+
+  {
+    city: 'Itapetininga/SP',
+    venue: "Gab's House Bar",
+    date: '08/08/2026',
+    time: '22h',
+    tickets: '',
+  },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Primatas Hamburgueria',
+    date: '30/08/2026',
+    time: '20h',
+    tickets: "",
+  },
+  {
+    city: 'Itapetininga/SP',
+    venue: 'Halloween Party',
+    date: '24/10/2026',
+    time: '21h',
+    tickets: "Gab's House Bar",
+  },
 ];
 
 const socials: SocialLink[] = [
