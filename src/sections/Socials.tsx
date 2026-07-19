@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaFacebookF, FaInstagram, FaSpotify, FaTiktok, FaYoutube } from 'react-icons/fa';
+import { FiMessageCircle } from 'react-icons/fi';
 import type { SocialLink } from '../types';
 
 interface SocialsProps {
@@ -12,6 +13,7 @@ const iconMap = {
   spotify: FaSpotify,
   tiktok: FaTiktok,
   facebook: FaFacebookF,
+  whatsapp: FiMessageCircle,
 };
 
 export function Socials({ links }: SocialsProps) {

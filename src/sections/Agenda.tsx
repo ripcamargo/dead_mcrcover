@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { toPng } from 'html-to-image';
 import { FiDownload } from 'react-icons/fi';
 import type { ShowItem } from '../types';
@@ -27,15 +27,35 @@ export function Agenda({ shows }: AgendaProps) {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const upcomingShows = shows.filter((show) => parseBRDate(show.date) >= today);
-  const pastShows = shows.filter((show) => parseBRDate(show.date) < today);
+
+  // Ordena os shows por data (mais antigo → mais recente)
+  const sortedShows = useMemo(() => {
+    return [...shows].sort(
+      (a, b) => parseBRDate(a.date).getTime() - parseBRDate(b.date).getTime()
+    );
+  }, [shows]);
+
+  const upcomingShows = sortedShows.filter(
+    (show) => parseBRDate(show.date) >= today
+  );
+
+  const pastShows = sortedShows.filter(
+    (show) => parseBRDate(show.date) < today
+  );
 
   const exportArtwork = async () => {
     const node = document.getElementById('agenda-artwork');
     if (!node) return;
+
     setIsExporting(true);
+
     try {
-      const dataUrl = await toPng(node, { cacheBust: true, pixelRatio: 2, backgroundColor: '#050505' });
+      const dataUrl = await toPng(node, {
+        cacheBust: true,
+        pixelRatio: 2,
+        backgroundColor: '#050505',
+      });
+
       const link = document.createElement('a');
       link.download = 'dead-agenda.png';
       link.href = dataUrl;
@@ -49,18 +69,31 @@ export function Agenda({ shows }: AgendaProps) {
     <section className="agenda-section" id="agenda">
       <div className="section-heading">
         <p className="eyebrow">Agenda</p>
-        <h2>Próximos shows.</h2>
+
         <div className="section-heading__actions">
           {pastShows.length > 0 ? (
-            <button type="button" className="toggle-past" onClick={() => setShowPast((prev) => !prev)}>
-              {showPast ? 'Ocultar datas passadas' : `Datas passadas (${pastShows.length})`}
+            <button
+              type="button"
+              className="toggle-past"
+              onClick={() => setShowPast((prev) => !prev)}
+            >
+              {showPast
+                ? 'Ocultar shows passados'
+                : `Exibir shows passados (${pastShows.length})`}
             </button>
           ) : null}
-          <button type="button" className="download-art" onClick={exportArtwork} disabled={isExporting}>
+
+          <button
+            type="button"
+            className="download-art"
+            onClick={exportArtwork}
+            disabled={isExporting}
+          >
             <FiDownload /> {isExporting ? 'Gerando arte...' : ''}
           </button>
         </div>
       </div>
+
       {upcomingShows.length > 0 ? (
         <div className="shows-grid">
           {upcomingShows.map((show, index) => (
@@ -75,79 +108,87 @@ export function Agenda({ shows }: AgendaProps) {
             >
               <div className="show-topline">
                 <span>{show.city}</span>
-
               </div>
+
               <h3>{show.venue}</h3>
               <p>{show.date}</p>
               <p>{show.time}</p>
+
               {show.tickets ? <small>{show.tickets}</small> : null}
             </motion.article>
           ))}
         </div>
       ) : (
-        <p className="agenda-empty">Nenhum show agendado no momento. Fique de olho nas redes para novidades.</p>
+        <p className="agenda-empty">
+          Nenhum show agendado no momento. Fique de olho nas redes para novidades.
+        </p>
       )}
 
       {showPast && pastShows.length > 0 ? (
-        <div className="shows-grid shows-grid--past">
-          {pastShows.map((show, index) => (
-            <motion.article
-              key={`${show.city}-${show.date}`}
-              className="show-card show-card--past"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
-            >
-              <div className="show-topline">
-                <span>{show.city}</span>
-              </div>
-              <h3>{show.venue}</h3>
-              <p>{show.date}</p>
-              <p>{show.time}</p>
-              {show.tickets ? <small>{show.tickets}</small> : null}
-            </motion.article>
-          ))}
-        </div>
+        <>
+          <div className="agenda-divider" aria-hidden="true" />
+
+          <div className="shows-grid shows-grid--past">
+            {pastShows.map((show, index) => (
+              <motion.article
+                key={`${show.city}-${show.date}`}
+                className="show-card show-card--past"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+              >
+                <div className="show-topline">
+                  <span>{show.city}</span>
+                </div>
+
+                <h3>{show.venue}</h3>
+                <p>{show.date}</p>
+                <p>{show.time}</p>
+
+                {show.tickets ? <small>{show.tickets}</small> : null}
+              </motion.article>
+            ))}
+          </div>
+        </>
       ) : null}
 
       <div className="agenda-artwork-clip">
         <div id="agenda-artwork" className="art-card">
-          <div className="art-card__photo">
-            <span className="art-card__stripe art-card__stripe--1" />
-            <span className="art-card__stripe art-card__stripe--2" />
-            <span className="art-card__stripe art-card__stripe--3" />
-          </div>
+          <div className="art-card__background" aria-hidden="true" />
 
-          <div className="art-card__header">
-            <p className="art-card__eyebrow">DEAD · My Chemical Romance Cover</p>
-            <h3 className="art-card__title">
-              AGE<br />NDA
-            </h3>
-            <p className="art-card__subtitle">Próximos shows 2026</p>
-          </div>
+          <div className="art-card__content">
+            <div className="art-card__timeline">
+              {upcomingShows.map((show) => {
+                const { day, monthLabel } = splitDate(show.date);
 
-          <div className="art-card__list">
-            {upcomingShows.map((show) => {
-              const { day, monthLabel } = splitDate(show.date);
-              return (
-                <div className="art-card__row" key={`${show.city}-${show.date}`}>
-                  <span className="art-card__date">
-                    {day}.{monthLabel}
-                  </span>
-                  <span className="art-card__info">
-                    <span className="art-card__venue">{show.venue}</span>
-                    <span className="art-card__city">
-                      {show.city} • {show.time}
-                    </span>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+                return (
+                  <div
+                    className="art-card__row"
+                    key={`${show.city}-${show.date}`}
+                  >
+                    <div className="art-card__date-block">
+                      <span className="art-card__day">{day}</span>
+                      <span className="art-card__month">{monthLabel}</span>
+                    </div>
 
-          <div className="art-card__footer">
-            <img src="/logo dead horizon.png" alt="DEAD logo" />
+                    <div className="art-card__info">
+                      <span className="art-card__venue">{show.venue}</span>
+
+                      <span className="art-card__city">
+                        {show.city} • {show.time}
+                      </span>
+
+                      {show.tickets ? (
+                        <span className="art-card__tickets">
+                          {show.tickets}
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

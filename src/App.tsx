@@ -4,13 +4,12 @@ import { Hero } from './sections/Hero';
 import { About } from './sections/About';
 import { Agenda } from './sections/Agenda';
 import { Gallery } from './sections/Gallery';
-import { Socials } from './sections/Socials';
 import { Contact } from './sections/Contact';
 import { Footer } from './sections/Footer';
 import { LoadingScreen } from './components/LoadingScreen';
 import { Navbar } from './components/Navbar';
 import { FloatingGlow } from './components/FloatingGlow';
-import type { ShowItem, SocialLink } from './types';
+import type { ShowItem } from './types';
 import { galleryImages } from './data/gallery';
 
 const shows: ShowItem[] = [
@@ -20,6 +19,7 @@ const shows: ShowItem[] = [
     date: '26/03/2026',
     time: '21h',
     tickets: 'Ensaio Aberto',
+    tour: 'Black Parade 1st Tour',
   },
   {
     city: 'Sorocaba/SP',
@@ -27,6 +27,7 @@ const shows: ShowItem[] = [
     date: '10/04/2026',
     time: '21h',
     tickets: '',
+    tour: 'Black Parade 1st Tour',
   },
   {
     city: 'Itapetininga/SP',
@@ -34,6 +35,7 @@ const shows: ShowItem[] = [
     date: '25/04/2026',
     time: '22h',
     tickets: '',
+    tour: 'Black Parade 1st Tour',    
   },
   {
     city: 'Sorocaba/SP',
@@ -41,6 +43,7 @@ const shows: ShowItem[] = [
     date: '09/05/2026',
     time: '19h',
     tickets: '',
+    tour: 'Black Parade 1st Tour',
   },
   {
     city: 'Itapetininga/SP',
@@ -48,6 +51,7 @@ const shows: ShowItem[] = [
     date: '06/06/2026',
     time: '23h',
     tickets: '',
+    tour: 'Black Parade 1st Tour',
   },
   {
     city: 'Sorocaba/SP',
@@ -55,6 +59,7 @@ const shows: ShowItem[] = [
     date: '13/06/2026',
     time: '22h',
     tickets: 'Abertura p/ Aléxia',
+    tour: 'Black Parade 1st Tour',
   },
   {
     city: 'Sorocaba/SP',
@@ -62,6 +67,7 @@ const shows: ShowItem[] = [
     date: '14/06/2026',
     time: '20h',
     tickets: "The Devil's Pub",
+    tour: 'Black Parade 1st Tour',
   },
   {
     city: 'Sorocaba/SP',
@@ -69,6 +75,7 @@ const shows: ShowItem[] = [
     date: '25/06/2026',
     time: '21h',
     tickets: 'Acústico • JF Estúdio',
+    tour: 'Black Parade 1st Tour',
   },
 
   {
@@ -77,6 +84,7 @@ const shows: ShowItem[] = [
     date: '08/08/2026',
     time: '22h',
     tickets: '',
+    tour: 'Black Parade 2nd Tour',
   },
   {
     city: 'Sorocaba/SP',
@@ -84,6 +92,7 @@ const shows: ShowItem[] = [
     date: '30/08/2026',
     time: '20h',
     tickets: "",
+    tour: 'Black Parade 2nd Tour',
   },
   {
     city: 'Itapetininga/SP',
@@ -91,15 +100,17 @@ const shows: ShowItem[] = [
     date: '24/10/2026',
     time: '21h',
     tickets: "Gab's House Bar",
+    tour: 'Black Parade 2nd Tour',
   },
-];
 
-const socials: SocialLink[] = [
-  { name: 'Instagram', href: 'https://instagram.com', icon: 'instagram' },
-  { name: 'YouTube', href: 'https://youtube.com', icon: 'youtube' },
-  { name: 'Spotify', href: 'https://spotify.com', icon: 'spotify' },
-  { name: 'TikTok', href: 'https://tiktok.com', icon: 'tiktok' },
-  { name: 'Facebook', href: 'https://facebook.com', icon: 'facebook' },
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Evento Particular',
+    date: '03/09/2026',
+    time: '21h',
+    tickets: "",
+    tour: 'Black Parade 2nd Tour',
+  },
 ];
 
 // galleryImages imported from src/data/gallery
@@ -126,7 +137,7 @@ function App() {
             <About />
             <Agenda shows={shows} />
             <Gallery images={galleryImages} />
-            <Socials links={socials} />
+            {/* <Socials links={socials} /> */}
             <Contact />
           </main>
           <Footer />

@@ -9,12 +9,10 @@ export function Footer() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7 }}
     >
-      <div className="footer-brand">
-        <img src="/logo dead horizon.png" alt="DEAD logo" />
-        <span>DEAD</span>
-      </div>
-      <p>Every night feels like the last one.</p>
+    
       <small>© 2026 DEAD! - My Chemical Romance cover. Todos os direitos reservados.</small>
+
+      
     </motion.footer>
   );
 }

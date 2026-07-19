@@ -9,7 +9,7 @@ export interface ShowItem {
 export interface SocialLink {
   name: string;
   href: string;
-  icon: 'instagram' | 'youtube' | 'spotify' | 'tiktok' | 'facebook';
+  icon: 'instagram' | 'youtube' | 'spotify' | 'tiktok' | 'facebook' | 'whatsapp';
 }
 
 export interface GalleryImage {

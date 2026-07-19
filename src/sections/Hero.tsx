@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiArrowDown, FiPlayCircle } from 'react-icons/fi';
+import { FiArrowDown } from 'react-icons/fi';
 
 export function Hero() {
   return (
@@ -33,7 +33,7 @@ export function Hero() {
             Ver agenda
           </a>
           <a className="button button-secondary" href="#contact">
-            <FiPlayCircle /> Entrar em contato
+            Contato
           </a>
         </motion.div>
       </div>
