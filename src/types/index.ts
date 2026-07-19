@@ -4,6 +4,7 @@ export interface ShowItem {
   date: string;
   time: string;
   tickets?: string;
+  tour: string;
 }
 
 export interface SocialLink {
