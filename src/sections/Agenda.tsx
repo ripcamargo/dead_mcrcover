@@ -21,6 +21,22 @@ function parseBRDate(date: string) {
   return new Date(year, month - 1, day);
 }
 
+// Espera todas as <img> de dentro do node terminarem de carregar.
+// Essencial no Safari/iOS, que pode tentar capturar o DOM antes das
+// imagens estarem prontas, resultando em fundo em branco.
+function waitForImages(node: HTMLElement) {
+  const images = Array.from(node.querySelectorAll('img'));
+  return Promise.all(
+    images.map((img) => {
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+      return new Promise<void>((resolve) => {
+        img.onload = () => resolve();
+        img.onerror = () => resolve(); // não trava o processo se uma imagem falhar
+      });
+    })
+  );
+}
+
 export function Agenda({ shows }: AgendaProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -53,6 +69,11 @@ export function Agenda({ shows }: AgendaProps) {
     setIsGenerating(true);
 
     try {
+      // Garante que a imagem de fundo (e qualquer outra <img>) já carregou
+      await waitForImages(node);
+      // Pequeno respiro extra ajuda o Safari a "assentar" o layout antes de capturar
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+
       const dataUrl = await toPng(node, {
         cacheBust: true,
         pixelRatio: 2,
@@ -203,7 +224,12 @@ export function Agenda({ shows }: AgendaProps) {
       {/* Card usado apenas para gerar a imagem (fica escondido via CSS) */}
       <div className="agenda-artwork-clip">
         <div id="agenda-artwork" className="art-card">
-          <div className="art-card__background" aria-hidden="true" />
+          <img
+            src="/layout vazio arte agenda.png"
+            alt=""
+            className="art-card__background"
+            crossOrigin="anonymous"
+          />
 
           <div className="art-card__content">
             <div className="art-card__timeline">
