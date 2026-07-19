@@ -759,6 +759,91 @@ footer {
   pointer-events: none;
 }
 
+.artwork-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.artwork-modal {
+  position: relative;
+  background: #0d0d0d;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: min(420px, 100%);
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.artwork-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.artwork-modal__image {
+  width: 100%;
+  border-radius: 10px;
+  max-height: 60vh;
+  object-fit: contain;
+  display: block;
+}
+
+.artwork-modal__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.artwork-modal__download,
+.artwork-modal__cancel {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.artwork-modal__download {
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.artwork-modal__download:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.artwork-modal__cancel {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .art-card {
   position: relative;
   width: 1080px;

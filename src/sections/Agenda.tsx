@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useMemo, useState } from 'react';
 import { toPng } from 'html-to-image';
-import { FiDownload } from 'react-icons/fi';
+import { FiDownload, FiX } from 'react-icons/fi';
 import type { ShowItem } from '../types';
 
 interface AgendaProps {
@@ -22,8 +22,10 @@ function parseBRDate(date: string) {
 }
 
 export function Agenda({ shows }: AgendaProps) {
-  const [isExporting, setIsExporting] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [showPast, setShowPast] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -43,11 +45,12 @@ export function Agenda({ shows }: AgendaProps) {
     (show) => parseBRDate(show.date) < today
   );
 
-  const exportArtwork = async () => {
+  // Gera a arte e abre o modal de preview
+  const openPreview = async () => {
     const node = document.getElementById('agenda-artwork');
     if (!node) return;
 
-    setIsExporting(true);
+    setIsGenerating(true);
 
     try {
       const dataUrl = await toPng(node, {
@@ -56,12 +59,28 @@ export function Agenda({ shows }: AgendaProps) {
         backgroundColor: '#050505',
       });
 
+      setPreviewUrl(dataUrl);
+    } catch (err) {
+      console.error('Erro ao gerar arte:', err);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const closePreview = () => setPreviewUrl(null);
+
+  // Baixa a arte que já está sendo exibida no modal
+  const downloadPreview = async () => {
+    if (!previewUrl) return;
+
+    setIsDownloading(true);
+
+    try {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-      // Mobile: tenta abrir o menu nativo de compartilhar/salvar
       if (isMobile) {
         try {
-          const blob = await (await fetch(dataUrl)).blob();
+          const blob = await (await fetch(previewUrl)).blob();
           const file = new File([blob], 'dead-agenda.png', { type: 'image/png' });
 
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -72,28 +91,24 @@ export function Agenda({ shows }: AgendaProps) {
             return;
           }
         } catch (shareErr) {
-          // Se o usuário cancelar o share, o navigator.share rejeita a Promise.
-          // Nesse caso não fazemos nada (ele desistiu de propósito).
           if ((shareErr as Error).name === 'AbortError') return;
           console.warn('Falha ao compartilhar, usando fallback:', shareErr);
         }
 
-        // Fallback: abre a imagem em nova aba para "Salvar imagem" (toque longo)
-        window.open(dataUrl, '_blank');
+        window.open(previewUrl, '_blank');
         return;
       }
 
-      // Desktop: download normal
       const link = document.createElement('a');
       link.download = 'dead-agenda.png';
-      link.href = dataUrl;
+      link.href = previewUrl;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (err) {
-      console.error('Erro ao exportar arte:', err);
+      console.error('Erro ao baixar arte:', err);
     } finally {
-      setIsExporting(false);
+      setIsDownloading(false);
     }
   };
 
@@ -118,10 +133,10 @@ export function Agenda({ shows }: AgendaProps) {
           <button
             type="button"
             className="download-art"
-            onClick={exportArtwork}
-            disabled={isExporting}
+            onClick={openPreview}
+            disabled={isGenerating}
           >
-            <FiDownload /> {isExporting ? 'Gerando arte...' : ''}
+            <FiDownload /> {isGenerating ? 'Gerando arte...' : ''}
           </button>
         </div>
       </div>
@@ -185,6 +200,7 @@ export function Agenda({ shows }: AgendaProps) {
         </>
       ) : null}
 
+      {/* Card usado apenas para gerar a imagem (fica escondido via CSS) */}
       <div className="agenda-artwork-clip">
         <div id="agenda-artwork" className="art-card">
           <div className="art-card__background" aria-hidden="true" />
@@ -224,6 +240,62 @@ export function Agenda({ shows }: AgendaProps) {
           </div>
         </div>
       </div>
+
+      {/* Modal de preview */}
+      <AnimatePresence>
+        {previewUrl ? (
+          <motion.div
+            className="artwork-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closePreview}
+          >
+            <motion.div
+              className="artwork-modal"
+              initial={{ opacity: 0, scale: 0.94, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 12 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="artwork-modal__close"
+                onClick={closePreview}
+                aria-label="Fechar"
+              >
+                <FiX />
+              </button>
+
+              <img
+                src={previewUrl}
+                alt="Arte da agenda"
+                className="artwork-modal__image"
+              />
+
+              <div className="artwork-modal__actions">
+                <button
+                  type="button"
+                  className="artwork-modal__download"
+                  onClick={downloadPreview}
+                  disabled={isDownloading}
+                >
+                  <FiDownload /> {isDownloading ? 'Baixando...' : 'Baixar arte'}
+                </button>
+
+                <button
+                  type="button"
+                  className="artwork-modal__cancel"
+                  onClick={closePreview}
+                >
+                  Fechar
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </section>
   );
 }
