@@ -21,18 +21,22 @@ function parseBRDate(date: string) {
   return new Date(year, month - 1, day);
 }
 
-// Espera todas as <img> de dentro do node terminarem de carregar.
-// Essencial no Safari/iOS, que pode tentar capturar o DOM antes das
-// imagens estarem prontas, resultando em fundo em branco.
 function waitForImages(node: HTMLElement) {
   const images = Array.from(node.querySelectorAll('img'));
   return Promise.all(
-    images.map((img) => {
-      if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-      return new Promise<void>((resolve) => {
-        img.onload = () => resolve();
-        img.onerror = () => resolve(); // não trava o processo se uma imagem falhar
-      });
+    images.map(async (img) => {
+      try {
+        if (typeof img.decode === 'function') {
+          await img.decode();
+        } else if (!(img.complete && img.naturalWidth > 0)) {
+          await new Promise<void>((resolve) => {
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+          });
+        }
+      } catch {
+        // decode() pode rejeitar mesmo com a imagem visível; ignoramos
+      }
     })
   );
 }
