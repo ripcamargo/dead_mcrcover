@@ -56,10 +56,42 @@ export function Agenda({ shows }: AgendaProps) {
         backgroundColor: '#050505',
       });
 
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      // Mobile: tenta abrir o menu nativo de compartilhar/salvar
+      if (isMobile) {
+        try {
+          const blob = await (await fetch(dataUrl)).blob();
+          const file = new File([blob], 'dead-agenda.png', { type: 'image/png' });
+
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'Agenda',
+            });
+            return;
+          }
+        } catch (shareErr) {
+          // Se o usuário cancelar o share, o navigator.share rejeita a Promise.
+          // Nesse caso não fazemos nada (ele desistiu de propósito).
+          if ((shareErr as Error).name === 'AbortError') return;
+          console.warn('Falha ao compartilhar, usando fallback:', shareErr);
+        }
+
+        // Fallback: abre a imagem em nova aba para "Salvar imagem" (toque longo)
+        window.open(dataUrl, '_blank');
+        return;
+      }
+
+      // Desktop: download normal
       const link = document.createElement('a');
       link.download = 'dead-agenda.png';
       link.href = dataUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error('Erro ao exportar arte:', err);
     } finally {
       setIsExporting(false);
     }

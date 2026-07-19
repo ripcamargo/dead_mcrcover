@@ -21,8 +21,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3 }}
         >
-          Uma experiência de palco com a intensidade do emo clássico, a elegância do rock moderno e a energia de um espetáculo que transforma cada noite em uma pulseira de luz e fumaça.
-        </motion.p>
+          A energia do My Chemical Romance ganha vida em um espetáculo que combina performance, sonoridade e identidade visual para entregar uma experiência marcante do início ao fim, de fã para fã.</motion.p>
         <motion.div
           className="hero-actions"
           initial={{ opacity: 0, y: 20 }}

@@ -15,7 +15,7 @@ export function Contact() {
         <p className="eyebrow">Contato</p>
         <h2>Quer levar a DEAD! para o seu evento?</h2>
         <h4><i>Seja para um festival na praça ou para o aniversário do seu gato...</i></h4>
-        <p>Produtores, booking e emos no geral podem falar direto pelo WhatsApp para conversar sobre shows, parcerias e eventos especiais.</p>
+        <p>Chama nóis!</p>
         <a className="button button-primary" href={socialUrls.whatsapp} target="_blank" rel="noreferrer">
           <FiMessageCircle /> Abrir WhatsApp
         </a>
