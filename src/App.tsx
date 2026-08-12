@@ -100,6 +100,7 @@ const shows: ShowItem[] = [
     date: '26/09/2026',
     time: '20h',
     tickets: '',
+    tour: 'Black Parade 2nd Tour',
   },
   {
     city: 'Itapetininga/SP',
