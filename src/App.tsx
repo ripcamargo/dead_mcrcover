@@ -86,6 +86,13 @@ const shows: ShowItem[] = [
     tickets: "",
   },
   {
+    city: 'Sorocaba/SP',
+    venue: "Gab's House Bar",
+    date: '26/09/2026',
+    time: '20h',
+    tickets: '',
+  },
+  {
     city: 'Itapetininga/SP',
     venue: 'Halloween Party',
     date: '24/10/2026',
