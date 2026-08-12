@@ -65,6 +65,16 @@ export function Agenda({ shows }: AgendaProps) {
     (show) => parseBRDate(show.date) < today
   );
 
+  const isEnded = (show: ShowItem) => parseBRDate(show.date) < today;
+
+  // A tour atual (para a arte) é a da próxima data agendada; se todas já passaram, é a da última tour com shows
+  const currentTour = (
+    sortedShows.find((show) => !isEnded(show)) ?? sortedShows[sortedShows.length - 1]
+  )?.tour;
+
+  // Shows da tour atual que entram na arte (passados e futuros)
+  const artShows = sortedShows.filter((show) => show.tour === currentTour);
+
   // Gera a arte e abre o modal de preview
   const openPreview = async () => {
     const node = document.getElementById('agenda-artwork');
@@ -238,13 +248,18 @@ export function Agenda({ shows }: AgendaProps) {
           />
 
           <div className="art-card__content">
-            <div className="art-card__timeline">
-              {upcomingShows.map((show) => {
+            <div
+              className={`art-card__timeline${
+                artShows.length > 5 ? ' art-card__timeline--compact' : ''
+              }`}
+            >
+              {artShows.map((show) => {
                 const { day, monthLabel } = splitDate(show.date);
+                const ended = isEnded(show);
 
                 return (
                   <div
-                    className="art-card__row"
+                    className={`art-card__row${ended ? ' art-card__row--ended' : ''}`}
                     key={`${show.city}-${show.date}`}
                   >
                     <div className="art-card__date-block">
