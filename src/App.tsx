@@ -95,7 +95,7 @@ const shows: ShowItem[] = [
     tour: 'Black Parade 2nd Tour',
   },
   {
-    city: 'Sorocaba/SP',
+    city: 'Itapetininga/SP',
     venue: "Gab's House Bar",
     date: '26/09/2026',
     time: '20h',
