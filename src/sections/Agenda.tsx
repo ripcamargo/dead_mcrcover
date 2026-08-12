@@ -75,6 +75,8 @@ export function Agenda({ shows }: AgendaProps) {
     try {
       // Garante que a imagem de fundo (e qualquer outra <img>) já carregou
       await waitForImages(node);
+      // Garante que as fontes customizadas (ex: Rubik Distressed) já baixaram
+      await document.fonts.ready;
       // Pequeno respiro extra ajuda o Safari a "assentar" o layout antes de capturar
       await new Promise((resolve) => requestAnimationFrame(resolve));
 

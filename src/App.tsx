@@ -88,6 +88,14 @@ const shows: ShowItem[] = [
   },
   {
     city: 'Sorocaba/SP',
+    venue: "The Devil's Pub",
+    date: '21/08/2026',
+    time: '20h',
+    tickets: "",
+    tour: 'Black Parade 2nd Tour',
+  },
+  {
+    city: 'Sorocaba/SP',
     venue: 'Primatas Hamburgueria',
     date: '06/09/2026',
     time: '17h',
