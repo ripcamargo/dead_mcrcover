@@ -90,7 +90,7 @@ const shows: ShowItem[] = [
     city: 'Sorocaba/SP',
     venue: 'Primatas Hamburgueria',
     date: '06/09/2026',
-    time: '20h',
+    time: '17h',
     tickets: "",
     tour: 'Black Parade 2nd Tour',
   },
