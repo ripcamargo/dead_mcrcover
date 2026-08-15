@@ -17,3 +17,19 @@ export interface GalleryImage {
   src: string;
   alt: string;
 }
+
+export interface MediaItem {
+  id: string;
+  category: 'logo' | 'rider' | 'banner' | 'poster' | 'outro';
+  title: string;
+  description?: string;
+  fileUrl?: string;
+  fileName?: string;
+  externalLink?: string;
+}
+
+export interface MediaCategory {
+  id: string;
+  name: string;
+  icon: string;
+}
