@@ -114,7 +114,7 @@ const shows: ShowItem[] = [
     city: 'São Paulo/SP',
     venue: 'House of Legends',
     date: '11/09/2026',
-    time: '17h',
+    time: '21h',
     tickets: "Vila Madalena",
     tour: 'Black Parade 2nd Tour',
   },
