@@ -1089,8 +1089,9 @@ footer {
 .art-card__row--ended .art-card__city,
 .art-card__row--ended .art-card__tickets {
   text-decoration: line-through;
-  text-decoration-thickness: 1px;
-  text-decoration-color: rgba(255,255,255,0.5);
+  text-decoration-thickness: 3px;
+  text-decoration-color: rgba(244, 242, 238, 0.9);
+  text-decoration-skip-ink: none;
 }
 
 .art-card__date-block {
