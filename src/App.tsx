@@ -111,11 +111,11 @@ const shows: ShowItem[] = [
     tour: 'Black Parade 2nd Tour',
   },
   {
-    city: 'Sorocaba/SP',
+    city: 'São Paulo/SP',
     venue: 'House of Legends',
     date: '11/09/2026',
     time: '17h',
-    tickets: "São Paulo",
+    tickets: "Vila Madalena",
     tour: 'Black Parade 2nd Tour',
   },
   {
