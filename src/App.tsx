@@ -137,7 +137,7 @@ const shows: ShowItem[] = [
 
   {
     city: 'Alambari/SP',
-    venue: 'Encontro Motoclube',
+    venue: 'Festival de Bandas - Tatus do Asfalto',
     date: '21/11/2026',
     time: '22h',
     tickets: "",
