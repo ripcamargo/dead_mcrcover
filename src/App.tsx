@@ -153,14 +153,7 @@ const shows: ShowItem[] = [
     tour: 'Black Parade 2nd Tour',
   },
 
-   {
-    city: 'Sorocaba/SP',
-    venue: 'A CONFIRMAR',
-    date: '31/10/2026',
-    time: '-',
-    tickets: "-",
-    tour: 'Black Parade 2nd Tour',
-  },
+   
 
   {
     city: 'Sorocaba/SP',
