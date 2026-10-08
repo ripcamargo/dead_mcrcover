@@ -136,6 +136,33 @@ const shows: ShowItem[] = [
   },
 
   {
+    city: 'Alambari/SP',
+    venue: 'Encontro Motoclube',
+    date: '21/11/2026',
+    time: '22h',
+    tickets: "",
+    tour: 'Black Parade 2nd Tour',
+  },
+
+  {
+    city: 'Sorocaba/SP',
+    venue: 'Emo Party',
+    date: '17/10/2026',
+    time: '19h',
+    tickets: "Hell House",
+    tour: 'Black Parade 2nd Tour',
+  },
+
+   {
+    city: 'Sorocaba/SP',
+    venue: 'A CONFIRMAR',
+    date: '31/10/2026',
+    time: '-',
+    tickets: "-",
+    tour: 'Black Parade 2nd Tour',
+  },
+
+  {
     city: 'Sorocaba/SP',
     venue: 'Evento Particular',
     date: '03/09/2026',
